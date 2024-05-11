@@ -13,7 +13,7 @@ const dotenv = require('dotenv')
 const { error } = require('console');
 
 const app = express();
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({  origin: ["https://blogapp-gdn9.vercel.app"], methods: ["GET","POST","PUT","DELETE"], credentials: true,}));
 app.use(express.json());
 app.use(cookieParser());
 dotenv.config()
