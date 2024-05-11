@@ -46,7 +46,10 @@ app.post('/login', async (req, res) => {
         if (passCheck) {
             jwt.sign({ username, id: userDoc._id }, process.env.SECRET, {}, (err, token) => {
                 if (err) res.json(err);
-                res.cookie('token', token).json('ok');
+                res.cookie('token', token,{
+                    httpOnly: true,
+                    sameSite: "none",
+                    secure: true,}).json('ok');
             })
             if (!username && !passCheck) {
                 res.json({ msg: "Incorrect Username or Password", status: false });
@@ -67,7 +70,10 @@ app.get('/profile', (req, res) => {
 })
 
 app.post('/logout', (req, res) => {
-    res.cookie('token', '').json("ok")
+    res.cookie('token', '', {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,}).json("ok")
 })
 
 
